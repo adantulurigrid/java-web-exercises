@@ -24,7 +24,11 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static Socket openSocket(String host, int port) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
+        try {
+            return new Socket(host, port);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -46,8 +50,12 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static String readMessage(BufferedReader reader) {
-        System.out.print("Enter message (q to quit): ");
-        return reader.readLine();
+        try {
+            System.out.print("Enter message (q to quit): ");
+            return reader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -62,6 +70,17 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static void writeToSocket(String message, Socket socket) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
+        try {
+            OutputStream outputStream = socket.getOutputStream();
+
+            BufferedWriter writer =
+                    new BufferedWriter(new OutputStreamWriter(outputStream));
+
+            writer.write(message);
+            writer.newLine();
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

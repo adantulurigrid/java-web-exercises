@@ -1,8 +1,12 @@
 package com.bobocode.annotation;
 
-/**
- * Annotation that can be placed on configuration class to import {@link StringTrimmingConfiguration}
- */
+import com.bobocode.StringTrimmingConfiguration;
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Import(StringTrimmingConfiguration.class)
 public @interface EnableStringTrimming {
-//todo: Implement EnableStringTrimming annotation according to javadoc
 }
